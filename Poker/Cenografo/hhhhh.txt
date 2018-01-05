@@ -1,0 +1,10 @@
+<ficheiro nome='MPSC6' imagem='entrada.jpg' largura='0' altura='0' site='PokerStar' jogo='' valor='10-20' cadeiras='6' >
+	<mural nome='vilao' cor_r='0' cor_g='255' cor_b='0' >
+		<recorte nome='A' posicao_y_inicial='0' posicao_y_final='100' posicao_x_inicial='0' posicao_x_final='100' />
+		<recorte nome='B' posicao_y_inicial='10' posicao_y_final='110' posicao_x_inicial='10' posicao_x_final='110' />
+	</mural>
+	<mural nome='vez' cor_r='0' cor_g='0' cor_b='255' >
+		<recorte nome='A' posicao_y_inicial='20' posicao_y_final='120' posicao_x_inicial='20' posicao_x_final='120' />
+		<recorte nome='B' posicao_y_inicial='30' posicao_y_final='130' posicao_x_inicial='30' posicao_x_final='130' />
+	</mural>
+</ficheiro>
