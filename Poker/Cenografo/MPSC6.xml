@@ -2,9 +2,15 @@
 	<mural nome="vilao" cor_r="0" cor_g="255" cor_b="0">
 		<recorte nome="A" posicao_y_inicial="0" posicao_y_final="100" posicao_x_inicial="0" posicao_x_final="100"/>
 		<recorte nome="B" posicao_y_inicial="0" posicao_y_final="110" posicao_x_inicial="30" posicao_x_final="160"/>
+	<recorte nome="C" posicao_y_inicial="139" posicao_y_final="190" posicao_x_inicial="614" posicao_x_final="774"/></mural>
+	<mural nome="diler" cor_r="255" cor_g="0" cor_b="0">
+		<recorte nome="A" posicao_y_inicial="0" posicao_y_final="124" posicao_x_inicial="317" posicao_x_final="472"/>
+		<recorte nome="B" posicao_y_inicial="20" posicao_y_final="17" posicao_x_inicial="35" posicao_x_final="130"/>
+		<recorte nome="C" posicao_y_inicial="0" posicao_y_final="120" posicao_x_inicial="20" posicao_x_final="120"/>
+		<recorte nome="D" posicao_y_inicial="120" posicao_y_final="117" posicao_x_inicial="135" posicao_x_final="190"/>
+		<recorte nome="E" posicao_y_inicial="0" posicao_y_final="124" posicao_x_inicial="317" posicao_x_final="472"/>
+		<recorte nome="F" posicao_y_inicial="20" posicao_y_final="17" posicao_x_inicial="35" posicao_x_final="130"/>
+		<recorte nome="G" posicao_y_inicial="0" posicao_y_final="120" posicao_x_inicial="20" posicao_x_final="120"/>
+		<recorte nome="H" posicao_y_inicial="22" posicao_y_final="117" posicao_x_inicial="135" posicao_x_final="190"/>
 	</mural>
-	<mural nome="vez" cor_r="0" cor_g="0" cor_b="255">
-		<recorte nome="A" posicao_y_inicial="0" posicao_y_final="167" posicao_x_inicial="33" posicao_x_final="110"/>
-		<recorte nome="B" posicao_y_inicial="0" posicao_y_final="120" posicao_x_inicial="20" posicao_x_final="120"/>
-	</mural>
-</ficheiro>
+<mural nome="vez" cor_r="22" cor_g="117" cor_b="135"><recorte nome="A" posicao_y_inicial="73" posicao_y_final="124" posicao_x_inicial="317" posicao_x_final="472"/></mural></ficheiro>

@@ -50,6 +50,8 @@ class Ficheiro(object):
         ficheiro = etree.parse(arquivo_xml)
         raiz = ficheiro.getroot()
 
+        print raiz.find("".join(["mural[@nome='",'diler',"']"])).attrib
+
         raiz.attrib['nome'] = self.nome
         raiz.attrib['largura'] = str(2000)
         raiz.attrib['altura'] = str(3000)
@@ -61,20 +63,38 @@ class Ficheiro(object):
         m = -1
         for  chave_m in self.dicionario_de_murais:
             m += 1
-            r = -1
+            r = 0
             mural = self.dicionario_de_murais[chave_m]
-            raiz[m].attrib['nome'] = mural.nome
-            raiz[m].attrib['cor_r'] = str(mural.cor[0])
-            raiz[m].attrib['cor_g'] = str(mural.cor[1])
-            raiz[m].attrib['cor_b'] = str(mural.cor[2])
+            atualizarMural = raiz.find("".join(["mural[@nome='",mural.nome,"']"]))
+            if atualizarMural == None:
+                novoMural = etree.SubElement(raiz, 'mural', nome = mural.nome)
+                novoMural.set('cor_r', str(recorte.posicao_y_inicial))
+                novoMural.set('cor_g', str(recorte.posicao_y_final))
+                novoMural.set('cor_b', str(recorte.posicao_x_inicial))
+                atualizarMural = novoMural
+            else:
+                atualizarMural.attrib['cor_r'] = str(mural.cor[0])
+                atualizarMural.attrib['cor_g'] = str(mural.cor[1])
+                atualizarMural.attrib['cor_b'] = str(mural.cor[2])
+                
             for  chave_r in mural.dicionario_de_recortes:
                 r += 1
                 recorte = mural.dicionario_de_recortes[chave_r]
-                raiz[m][r].attrib['nome'] = recorte.nome
-                raiz[m][r].attrib['posicao_y_inicial'] = str(0) #str(recorte.posicao_y_inicial)
-                raiz[m][r].attrib['posicao_y_final'] = str(recorte.posicao_y_final)
-                raiz[m][r].attrib['posicao_x_inicial'] = str(recorte.posicao_x_inicial)
-                raiz[m][r].attrib['posicao_x_final'] = str(recorte.posicao_x_final)
+                atualizarRecorte = atualizarMural.find("".join(["recorte[@nome='",recorte.nome,"']"]))
+                if atualizarRecorte == None:
+                    novoElemento = etree.SubElement(atualizarMural, 'recorte', nome = recorte.nome)
+                    novoElemento.set('posicao_y_inicial', str(recorte.posicao_y_inicial))
+                    novoElemento.set('posicao_y_final', str(recorte.posicao_y_final))
+                    novoElemento.set('posicao_x_inicial', str(recorte.posicao_x_inicial))
+                    novoElemento.set('posicao_x_final', str(recorte.posicao_x_final))
+                else:
+                    atualizarRecorte.attrib['posicao_y_inicial'] = str(recorte.posicao_y_inicial)
+                    atualizarRecorte.attrib['posicao_y_final'] = str(recorte.posicao_y_final)
+                    atualizarRecorte.attrib['posicao_x_inicial'] = str(recorte.posicao_x_inicial)
+                    atualizarRecorte.attrib['posicao_x_final'] = str(recorte.posicao_x_final)
+
+            for x in range(len(self.dicionario_de_murais),len(raiz)):
+                print x
                 
         
         outFile = open(arquivo_xml,'w')
@@ -159,6 +179,12 @@ class FicheiroTest(unittest.TestCase):
         ficheiro.show()
         ficheiro.nome = nome_do_ficheiro_original
         ficheiro.selecionar_mural('vilao').selecionar_recorte('A').posicao_x_final = posicao_x_final_original
+        ficheiro.salvar_molde('MPSC6.xml')
+        ficheiro.show()
+        ficheiro.selecionar_mural('vilao').adicionar_recorte('C',(139,190,614,774))
+        cor_vez = (255,0,0)
+        ficheiro.adicionar_mural('vez',cor_vez)
+        ficheiro.selecionar_mural('vez').adicionar_recorte('A',(73,124,317,472))
         ficheiro.salvar_molde('MPSC6.xml')
         ficheiro.show()
 
