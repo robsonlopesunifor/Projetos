@@ -9,11 +9,12 @@ class Fotografo(object):
     def __init__(self):
         self.dicionario_de_mesas = {}
         self.imagem = 'null'
-        self.laudo = None
-        pass
 
-    def inicia(self):
-        pass
+    def iniciar(self,janela,divisoes):
+        self.registrar_lista_de_mesas()
+        self.organizar_mesas(2)
+        self.fotografar_mesa(janela)
+        return self.imagem
 
     def registrar_lista_de_mesas(self):
         dicionario_de_telas = pyautogui.getWindows()
@@ -32,14 +33,12 @@ class Fotografo(object):
             posicao_y = (altura - 10)* int( i % divisoes)
             dupla = (posicao_x,posicao_y,largura,altura)
             self.dicionario_de_mesas[chave] = dupla
-            print self.dicionario_de_mesas.get(chave)
             janela.resize( largura, altura)
             janela.move(posicao_x,posicao_y)
             i += 1
         
     def fotografar_mesa(self,titulo):
         dupla = self.dicionario_de_mesas.get(titulo)
-        print dupla
         PILImage = pyautogui.screenshot(region = dupla)
         self.imagem = cv2.cvtColor(numpy.array(PILImage), cv2.COLOR_RGB2BGR)
 
@@ -52,32 +51,48 @@ class Fotografo(object):
 class FotografoTest(unittest.TestCase):
 
     def test_lista_de_mesas(self):
-        fotogrado = Fotografo()
-        fotogrado.registrar_lista_de_mesas()
-        print fotogrado.dicionario_de_mesas
+        print '------------test_lista_de_mesas---------------'
+        fotografo = Fotografo()
+        fotografo.registrar_lista_de_mesas()
+        print fotografo.dicionario_de_mesas
 
     def test_organizar_mesas(self):
-        fotogrado = Fotografo()
-        fotogrado.registrar_lista_de_mesas()
-        fotogrado.organizar_mesas(2)
+        print '------------test_organizar_mesas---------------'
+        fotografo = Fotografo()
+        fotografo.registrar_lista_de_mesas()
+        fotografo.organizar_mesas(2)
 
     def test_fotografar_mesa(self):
-        fotogrado = Fotografo()
-        fotogrado.registrar_lista_de_mesas()
-        fotogrado.organizar_mesas(2)
-        for chave in fotogrado.dicionario_de_mesas:
-            print chave, fotogrado.dicionario_de_mesas[chave]
-            fotogrado.fotografar_mesa(chave)
+        print '------------test_fotografar_mesa---------------'
+        fotografo = Fotografo()
+        fotografo.registrar_lista_de_mesas()
+        fotografo.organizar_mesas(2)
+        for chave in fotografo.dicionario_de_mesas:
+            print chave, fotografo.dicionario_de_mesas[chave]
+            fotografo.fotografar_mesa(chave)
 
     def test_show(self):
-        fotogrado = Fotografo()
-        fotogrado.registrar_lista_de_mesas()
-        fotogrado.organizar_mesas(2)
-        for chave in fotogrado.dicionario_de_mesas:
-            print chave, fotogrado.dicionario_de_mesas[chave]
+        print '------------test_show---------------'
+        fotografo = Fotografo()
+        fotografo.registrar_lista_de_mesas()
+        fotografo.organizar_mesas(2)
+        for chave in fotografo.dicionario_de_mesas:
+            print chave, fotografo.dicionario_de_mesas[chave]
             if input('1 / 0 : ') == 1:
-                fotogrado.fotografar_mesa(chave)
-                fotogrado.show()
+                fotografo.fotografar_mesa(chave)
+                fotografo.show()
+
+    def test_iniciar(self):
+        print '------------test_iniciar---------------'
+        fotografo = Fotografo()
+        fotografo.registrar_lista_de_mesas()
+        for chave in fotografo.dicionario_de_mesas:
+            print chave
+            if input('1 / 0 : ') == 1:
+                fotografo.iniciar(chave,2)
+                fotografo.show()
+        
+        
         
 
 if __name__ == "__main__":

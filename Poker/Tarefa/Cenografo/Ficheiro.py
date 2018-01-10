@@ -5,6 +5,7 @@ import numpy as np
 import unittest
 from lxml import etree
 import Mural
+import pyautogui
 
 class Ficheiro(object):
     
@@ -22,8 +23,9 @@ class Ficheiro(object):
         self.dicionario_de_murais = {}
         self.dicionario_das_respostas_dos_murais = {}
 
-    def inicia(self,molde_xml):
+    def iniciar(self,molde_xml,imagem):
         self.molde_xml = molde_xml
+        self.imagem = imagem
         self.ler_molde(self.molde_xml)
 
     def adicionar_mural(self,nome_do_mural,cor):
@@ -41,10 +43,6 @@ class Ficheiro(object):
     def remover_mural(self,nome_do_mural):
         self.dicionario_de_murais.pop(nome_do_mural)
         self.dicionario_das_respostas_dos_murais.pop(nome_do_mural)
-
-    def show(self):
-        cv2.imshow(self.nome,self.imagem)
-        cv2.waitKey(0)
 
     def salvar_molde(self,arquivo_xml):
         ficheiro = etree.parse(arquivo_xml)
@@ -130,6 +128,24 @@ class Ficheiro(object):
                 px_final = int(recorte.attrib.get('posicao_x_final'))
                 self.selecionar_mural(nome_mural).adicionar_recorte(nome_recorte,(py_inicial,py_final,px_inicial,px_final))        
 
+    def marcar(self):
+        for chave in self.dicionario_de_murais:
+            self.dicionario_de_murais[chave].marcar()
+
+    def cortar(self):
+        for chave in self.dicionario_de_murais:
+            self.dicionario_de_murais[chave].cortar()
+
+    def set_imagem(self,imagem):
+        self.imagem = imagem
+        for chave in self.dicionario_de_murais:
+            self.dicionario_de_murais[chave].set_imagem(imagem)
+
+    def show(self):
+        self.marcar()
+        cv2.imshow(self.nome,self.imagem)
+        cv2.waitKey(0)
+
     def resposta():
         print('resposta do ficheiro e')
         
@@ -192,6 +208,25 @@ class FicheiroTest(unittest.TestCase):
         ficheiro = Ficheiro()
         ficheiro.ler_molde('MPSC6.xml')
         ficheiro.show()
+
+    def test_iniciar(self):
+        ficheiro = Ficheiro()
+        PILImage = pyautogui.screenshot(region = (0,0,400,400))
+        imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
+        ficheiro.iniciar('MPSC6.xml',imagem)
+        ficheiro.show()
+
+    def test_set_imagem(self):
+        ficheiro = Ficheiro()
+        PILImage = pyautogui.screenshot(region = (0,0,400,400))
+        imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
+        ficheiro.iniciar('MPSC6.xml',imagem)
+        ficheiro.show()
+        PILImage = pyautogui.screenshot(region = (0,0,400,400))
+        imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
+        ficheiro.set_imagem(imagem)
+        ficheiro.show()
+        
 
     def test_resposta(self):
         self.assertTrue(True)

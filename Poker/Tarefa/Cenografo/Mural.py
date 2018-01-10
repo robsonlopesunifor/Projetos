@@ -41,13 +41,27 @@ class Mural:
         self.dicionario_de_recortes.pop(nome_do_recorte)
         self.dicionario_das_respostas_dos_recortes.pop(nome_do_recorte)
 
+    def marcar(self):
+        for chave in self.dicionario_de_recortes:
+            self.dicionario_de_recortes[chave].marcar()
+
+    def cortar(self):
+        for chave in self.dicionario_de_recortes:
+            self.dicionario_de_recortes[chave].cortar()
+
+    def set_imagem(self,imagem):
+        self.imagem = imagem
+        for chave in self.dicionario_de_recortes:
+            self.dicionario_de_recortes[chave].imagem = imagem
+
     def show(self):
+        self.marcar()
         cv2.imshow(self.nome,self.imagem)
         cv2.waitKey(0)
 
 
     def show_informacoes():
-        print(ordem)
+        pass
 
 class MuralTest(unittest.TestCase):
 
@@ -88,6 +102,27 @@ class MuralTest(unittest.TestCase):
         mural.adicionar_recorte('B',(311,364,614,774))
         mural.adicionar_recorte('C',(311,364,23,183))
         mural.show()
+
+    def test_marcar(self):
+        pass
+
+    def test_cortar(self):
+        pass
+
+    def test_set_imagem(self):
+        mural = Mural()
+        nome = 'nomedo mural'
+        imagem = cv2.imread('entrada.jpg')
+        cor = (0, 255, 0)
+        mural.inicia(nome,imagem,cor)
+        mural.adicionar_recorte('A',(139,190,614,774))
+        mural.adicionar_recorte('B',(311,364,614,774))
+        mural.adicionar_recorte('C',(311,364,23,183))
+        mural.show()
+        imagem = cv2.imread('entrada2.jpg')
+        mural.set_imagem(imagem)
+        mural.show()
+        pass
 
     def test_show_informacoes(self):
         self.assertTrue(True)

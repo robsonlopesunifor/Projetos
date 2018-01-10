@@ -22,8 +22,6 @@ class Recorte:
         self.posicao_y_final = retangulo[1]
         self.posicao_x_inicial = retangulo[2]
         self.posicao_x_final = retangulo[3]
-        self.cortar()
-        self.marcar()
 
     def cortar(self):
         self.subimagem = self.imagem[self.posicao_y_inicial:self.posicao_y_final,self.posicao_x_inicial:self.posicao_x_final]
@@ -79,6 +77,8 @@ class RecorteTest(unittest.TestCase):
         retangulo = (139,190,614,774)
         recorte = Recorte()
         recorte.inicia(nome,imagem,cor,retangulo)
+        recorte.marcar()
+        recorte.cortar()
         recorte.show()
 
 if __name__ == "__main__":
