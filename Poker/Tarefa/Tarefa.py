@@ -39,7 +39,7 @@ class TarefaTest(unittest.TestCase):
             if input(' 1 / 0 : ') == 1:
                 tarefa = Tarefa()
                 tarefa.iniciar('MPSC6.xml',chave)
-                for x in range(0,2):
+                for x in range(0,1):
                     tarefa.executar()
                     tarefa.show()
         

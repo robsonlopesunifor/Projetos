@@ -1,16 +1,35 @@
-<ficheiro nome="MSPC6" imagem="entrada.jpg" largura="2000" altura="3000" site="PokerStar" jogo="" valor="10-20" cadeiras="6">
-	<mural nome="vilao" cor_r="0" cor_g="255" cor_b="0">
-		<recorte nome="A" posicao_y_inicial="0" posicao_y_final="100" posicao_x_inicial="0" posicao_x_final="100"/>
-		<recorte nome="B" posicao_y_inicial="0" posicao_y_final="110" posicao_x_inicial="30" posicao_x_final="160"/>
-	<recorte nome="C" posicao_y_inicial="139" posicao_y_final="190" posicao_x_inicial="614" posicao_x_final="774"/></mural>
-	<mural nome="diler" cor_r="255" cor_g="0" cor_b="0">
-		<recorte nome="A" posicao_y_inicial="0" posicao_y_final="124" posicao_x_inicial="317" posicao_x_final="472"/>
-		<recorte nome="B" posicao_y_inicial="20" posicao_y_final="17" posicao_x_inicial="35" posicao_x_final="130"/>
-		<recorte nome="C" posicao_y_inicial="0" posicao_y_final="120" posicao_x_inicial="20" posicao_x_final="120"/>
-		<recorte nome="D" posicao_y_inicial="120" posicao_y_final="117" posicao_x_inicial="135" posicao_x_final="190"/>
-		<recorte nome="E" posicao_y_inicial="0" posicao_y_final="124" posicao_x_inicial="317" posicao_x_final="472"/>
-		<recorte nome="F" posicao_y_inicial="20" posicao_y_final="17" posicao_x_inicial="35" posicao_x_final="130"/>
-		<recorte nome="G" posicao_y_inicial="0" posicao_y_final="120" posicao_x_inicial="20" posicao_x_final="120"/>
-		<recorte nome="H" posicao_y_inicial="22" posicao_y_final="117" posicao_x_inicial="135" posicao_x_final="190"/>
+<ficheiro nome="MSPC6" imagem="entrada.jpg" largura="484" altura="364" site="PokerStar" jogo="" valor="10-20" cadeiras="6">
+	<mural nome="vilao" cor_r="0" cor_g="0" cor_b="255">
+		<recorte nome="A" posicao_x_inicial="407" posicao_y_inicial="100" posicao_x_final="474" posicao_y_final="114" />
+		<recorte nome="B" posicao_x_inicial="407" posicao_y_inicial="205" posicao_x_final="474" posicao_y_final="219" />
+		<recorte nome="C" posicao_x_inicial="224" posicao_y_inicial="264" posicao_x_final="291" posicao_y_final="277" />
+		<recorte nome="D" posicao_x_inicial="13" posicao_y_inicial="205" posicao_x_final="80" posicao_y_final="219" />
+		<recorte nome="E" posicao_x_inicial="13" posicao_y_inicial="100" posicao_x_final="80" posicao_y_final="114" />
+		<recorte nome="F" posicao_x_inicial="197" posicao_y_inicial="59" posicao_x_final="264" posicao_y_final="73" />
 	</mural>
-<mural nome="vez" cor_r="22" cor_g="117" cor_b="135"><recorte nome="A" posicao_y_inicial="73" posicao_y_final="124" posicao_x_inicial="317" posicao_x_final="472"/></mural></ficheiro>
+	<mural nome="fichas" cor_r="0" cor_g="255" cor_b="0">
+		<recorte nome="A" posicao_x_inicial="407" posicao_y_inicial="115" posicao_x_final="474" posicao_y_final="128" />
+		<recorte nome="B" posicao_x_inicial="407" posicao_y_inicial="220" posicao_x_final="474" posicao_y_final="233" />
+		<recorte nome="C" posicao_x_inicial="224" posicao_y_inicial="278" posicao_x_final="291" posicao_y_final="292" />
+		<recorte nome="D" posicao_x_inicial="13" posicao_y_inicial="220" posicao_x_final="80" posicao_y_final="233" />
+		<recorte nome="E" posicao_x_inicial="13" posicao_y_inicial="115" posicao_x_final="80" posicao_y_final="128" />
+		<recorte nome="F" posicao_x_inicial="197" posicao_y_inicial="74" posicao_x_final="264" posicao_y_final="87" />
+	</mural>
+	<mural nome="vez" cor_r="255" cor_g="0" cor_b="0">
+		<recorte nome="A" posicao_x_inicial="395" posicao_y_inicial="128" posicao_x_final="462" posicao_y_final="135" />
+		<recorte nome="B" posicao_x_inicial="395" posicao_y_inicial="233" posicao_x_final="462" posicao_y_final="240" />
+		<recorte nome="C" posicao_x_inicial="212" posicao_y_inicial="292" posicao_x_final="279" posicao_y_final="299" />
+		<recorte nome="D" posicao_x_inicial="21" posicao_y_inicial="233" posicao_x_final="88" posicao_y_final="240" />
+		<recorte nome="E" posicao_x_inicial="21" posicao_y_inicial="128" posicao_x_final="88" posicao_y_final="135" />
+		<recorte nome="F" posicao_x_inicial="205" posicao_y_inicial="87" posicao_x_final="272" posicao_y_final="94" />
+	</mural>
+	<mural nome="diler" cor_r="0" cor_g="255" cor_b="255">
+		<recorte nome="A" posicao_x_inicial="373" posicao_y_inicial="131" posicao_x_final="392" posicao_y_final="149" />
+		<recorte nome="B" posicao_x_inicial="352" posicao_y_inicial="209" posicao_x_final="371" posicao_y_final="227" />
+		<recorte nome="C" posicao_x_inicial="275" posicao_y_inicial="231" posicao_x_final="294" posicao_y_final="249" />
+		<recorte nome="D" posicao_x_inicial="115" posicao_y_inicial="209" posicao_x_final="134" posicao_y_final="227" />
+		<recorte nome="E" posicao_x_inicial="100" posicao_y_inicial="128" posicao_x_final="119" posicao_y_final="146" />
+		<recorte nome="F" posicao_x_inicial="197" posicao_y_inicial="95" posicao_x_final="216" posicao_y_final="113" />
+	</mural>
+	
+</ficheiro>

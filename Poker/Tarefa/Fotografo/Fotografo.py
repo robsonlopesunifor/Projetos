@@ -24,14 +24,17 @@ class Fotografo(object):
 
     def organizar_mesas(self,divisoes):
         tamanho_da_tela = pyautogui.size()
-        altura = int(tamanho_da_tela[1]/divisoes)
-        largura = int(altura * (1.3714))
+        print tamanho_da_tela[1]
+        altura = int((tamanho_da_tela[1] - 20)/divisoes)
+        largura = int(altura * (1.35))
+        print altura, largura
         i = 0
         for chave in self.dicionario_de_mesas:
             janela = pyautogui.getWindow(chave)
-            posicao_x = (largura - 25)* int( i / divisoes) - 10
+            posicao_x = (largura - 20)* int( i / divisoes) - 10
             posicao_y = (altura - 10)* int( i % divisoes)
-            dupla = (posicao_x,posicao_y,largura,altura)
+            dupla = (posicao_x + 10,posicao_y,largura - 20,altura - 10)
+            print dupla
             self.dicionario_de_mesas[chave] = dupla
             janela.resize( largura, altura)
             janela.move(posicao_x,posicao_y)
