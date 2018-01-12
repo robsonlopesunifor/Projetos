@@ -25,7 +25,6 @@ class Tarefa(object):
     def show(self):
         self.ficheiro.marcar()
         self.ficheiro.show()
-        pass
 
 
 class TarefaTest(unittest.TestCase):
