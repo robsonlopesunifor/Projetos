@@ -10,11 +10,9 @@ class Fotografo(object):
         self.dicionario_de_mesas = {}
         self.imagem = 'null'
 
-    def iniciar(self,janela,divisoes):
+    def iniciar(self,divisoes):
         self.registrar_lista_de_mesas()
         self.organizar_mesas(2)
-        self.fotografar_mesa(janela)
-        return self.imagem
 
     def registrar_lista_de_mesas(self):
         dicionario_de_telas = pyautogui.getWindows()
@@ -24,26 +22,24 @@ class Fotografo(object):
 
     def organizar_mesas(self,divisoes):
         tamanho_da_tela = pyautogui.size()
-        print tamanho_da_tela[1]
         altura = int((tamanho_da_tela[1] - 20)/divisoes)
         largura = int(altura * (1.35))
-        print altura, largura
         i = 0
         for chave in self.dicionario_de_mesas:
             janela = pyautogui.getWindow(chave)
             posicao_x = (largura - 20)* int( i / divisoes) - 10
             posicao_y = (altura - 10)* int( i % divisoes)
             dupla = (posicao_x + 10,posicao_y,largura - 20,altura - 10)
-            print dupla
             self.dicionario_de_mesas[chave] = dupla
             janela.resize( largura, altura)
             janela.move(posicao_x,posicao_y)
             i += 1
         
-    def fotografar_mesa(self,titulo):
-        dupla = self.dicionario_de_mesas.get(titulo)
+    def fotografar_mesa(self,janela):
+        dupla = self.dicionario_de_mesas.get(janela)
         PILImage = pyautogui.screenshot(region = dupla)
         self.imagem = cv2.cvtColor(numpy.array(PILImage), cv2.COLOR_RGB2BGR)
+        
 
     def show(self):
         if self.imagem != 'null':
