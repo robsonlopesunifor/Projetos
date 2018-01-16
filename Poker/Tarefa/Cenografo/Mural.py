@@ -54,6 +54,11 @@ class Mural:
         for chave in self.dicionario_de_recortes:
             self.dicionario_de_recortes[chave].imagem = imagem
 
+    def set_cor(self,cor):
+        self.cor = cor
+        for chave in self.dicionario_de_recortes:
+            self.dicionario_de_recortes[chave].cor = cor
+
     def show(self):
         self.marcar()
         cv2.imshow(self.nome,self.imagem)
@@ -121,6 +126,21 @@ class MuralTest(unittest.TestCase):
         mural.show()
         imagem = cv2.imread('entrada2.jpg')
         mural.set_imagem(imagem)
+        mural.show()
+
+    def test_set_cor(self):
+        print 'teste set_cor'
+        mural = Mural()
+        nome = 'nomedo mural'
+        imagem = cv2.imread('entrada.jpg')
+        cor = (0, 255, 0)
+        mural.inicia(nome,imagem,cor)
+        mural.adicionar_recorte('A',(139,190,614,774))
+        mural.adicionar_recorte('B',(311,364,614,774))
+        mural.adicionar_recorte('C',(311,364,23,183))
+        mural.show()
+        imagem = cv2.imread('entrada2.jpg')
+        mural.set_cor((255,255,255))
         mural.show()
         pass
 

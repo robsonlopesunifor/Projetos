@@ -12,7 +12,6 @@ class Tarefa(object):
         self.mesa = 'null'
         self.molde = 'null'
         self.imagem = 'null'
-        self.molde = 'null'
         self.fotografo = Fotografo.Fotografo.Fotografo()
         self.ficheiro = Cenografo.Ficheiro.Ficheiro()
 
@@ -20,7 +19,7 @@ class Tarefa(object):
         self.molde = molde
         self.mesa = mesa
         self.fotografo.iniciar(2)
-        self.ficheiro.iniciar(self.molde,self.imagem)
+        self.ficheiro.iniciar(self.molde)
 
     def executar(self):
         self.imagem = self.fotografo.fotografar_mesa(self.mesa)

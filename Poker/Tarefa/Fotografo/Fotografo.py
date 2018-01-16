@@ -39,6 +39,7 @@ class Fotografo(object):
         dupla = self.dicionario_de_mesas.get(janela)
         PILImage = pyautogui.screenshot(region = dupla)
         self.imagem = cv2.cvtColor(numpy.array(PILImage), cv2.COLOR_RGB2BGR)
+        return  self.imagem
         
 
     def show(self):
@@ -88,7 +89,8 @@ class FotografoTest(unittest.TestCase):
         for chave in fotografo.dicionario_de_mesas:
             print chave
             if input('1 / 0 : ') == 1:
-                fotografo.iniciar(chave,2)
+                fotografo.iniciar(2)
+                fotografo.fotografar_mesa(chave)
                 fotografo.show()
         
         

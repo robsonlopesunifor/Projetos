@@ -23,9 +23,8 @@ class Ficheiro(object):
         self.dicionario_de_murais = {}
         self.dicionario_das_respostas_dos_murais = {}
 
-    def iniciar(self,molde_xml,imagem):
+    def iniciar(self,molde_xml):
         self.molde_xml = molde_xml
-        self.imagem = imagem
         self.ler_molde(self.molde_xml)
 
     def adicionar_mural(self,nome_do_mural,cor):
@@ -213,14 +212,15 @@ class FicheiroTest(unittest.TestCase):
         ficheiro = Ficheiro()
         PILImage = pyautogui.screenshot(region = (0,0,400,400))
         imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
-        ficheiro.iniciar('MPSC6.xml',imagem)
+        ficheiro.iniciar('MPSC6.xml')
+        ficheiro.set_imagem(imagem)
         ficheiro.show()
 
     def test_set_imagem(self):
         ficheiro = Ficheiro()
         PILImage = pyautogui.screenshot(region = (0,0,400,400))
         imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
-        ficheiro.iniciar('MPSC6.xml',imagem)
+        ficheiro.iniciar('MPSC6.xml')
         ficheiro.show()
         PILImage = pyautogui.screenshot(region = (0,0,400,400))
         imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
