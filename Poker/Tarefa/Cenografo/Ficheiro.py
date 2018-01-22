@@ -20,16 +20,18 @@ class Ficheiro(object):
         self.jogo = 'null'
         self.valor = 'null'
         self.cadeiras = 'null'
+        self.caminho = ''
         self.dicionario_de_murais = {}
         self.dicionario_das_respostas_dos_murais = {}
 
-    def iniciar(self,molde_xml):
-        self.molde_xml = molde_xml
+    def iniciar(self,molde):
+        self.molde_xml = "".join([molde,'/',molde.split('/')[-1],'.xml'])
+        self.caminho = "".join([molde,'/Bases/'])
         self.ler_molde(self.molde_xml)
 
     def adicionar_mural(self,nome_do_mural,cor):
         novo_mural = Mural.Mural()
-        novo_mural.inicia(nome_do_mural,self.imagem,cor)
+        novo_mural.inicia(nome_do_mural,self.caminho,self.imagem,cor)
         self.dicionario_de_murais.setdefault(nome_do_mural,novo_mural)
         self.dicionario_das_respostas_dos_murais.setdefault(nome_do_mural,'null')
 
@@ -140,6 +142,12 @@ class Ficheiro(object):
         for chave in self.dicionario_de_murais:
             self.dicionario_de_murais[chave].set_imagem(imagem)
 
+    def comparar(self):
+        for chave in self.dicionario_de_murais:
+            murais = self.dicionario_de_murais[chave]
+            self.dicionario_das_respostas_dos_murais[chave] = murais.comparar(1000)
+        return self.dicionario_das_respostas_dos_murais
+            
     def show(self):
         self.marcar()
         cv2.imshow(self.nome,self.imagem)
@@ -153,6 +161,7 @@ class Ficheiro(object):
 class FicheiroTest(unittest.TestCase):
     
     def test_adicionar_seleciona_remover_mural(self):
+        print '-------------test_adicionar_seleciona_remover_mural---------------'
         print("____test_adicionar_seleciona_remover_mural(self): teste dos metodos ")
         ficheiro = Ficheiro()
         cor_verde = (0,255,0)
@@ -170,8 +179,9 @@ class FicheiroTest(unittest.TestCase):
         print("________Metodo remover_mural('nome_do_mural') >> sucesso")
             
     def test_show(self):
+        print '-------------test_show---------------'
         ficheiro = Ficheiro()
-        ficheiro.imagem = cv2.imread('entrada.jpg')
+        ficheiro.imagem = cv2.imread('Teste/mesa_1.jpg')
         cor_vilao = (0,0,255)
         ficheiro.adicionar_mural('vilao',cor_vilao)
         ficheiro.selecionar_mural('vilao').adicionar_recorte('A',(139,190,614,774))
@@ -183,53 +193,62 @@ class FicheiroTest(unittest.TestCase):
         ficheiro.show()
 
     def test_salvar_molde(self):
+        print '-------------test_salvar_molde---------------'
         ficheiro = Ficheiro()
-        ficheiro.ler_molde('MPSC6.xml')
+        ficheiro.imagem = cv2.imread('Teste/mesa_3.jpg')
+        ficheiro.ler_molde('Moldes/MPSC6/MPSC6.xml')
         ficheiro.show()
         nome_do_ficheiro_original = ficheiro.nome
         posicao_x_final_original = ficheiro.selecionar_mural('vilao').selecionar_recorte('A').posicao_x_final
         ficheiro.nome = 'teste do salvar molde'
         ficheiro.selecionar_mural('vilao').selecionar_recorte('A').posicao_x_final = 400
-        ficheiro.salvar_molde('MPSC6.xml')
+        ficheiro.salvar_molde('Moldes/MPSC6/MPSC6.xml')
         ficheiro.show()
         ficheiro.nome = nome_do_ficheiro_original
         ficheiro.selecionar_mural('vilao').selecionar_recorte('A').posicao_x_final = posicao_x_final_original
-        ficheiro.salvar_molde('MPSC6.xml')
+        ficheiro.salvar_molde('Moldes/MPSC6/MPSC6.xml')
         ficheiro.show()
         ficheiro.selecionar_mural('vilao').adicionar_recorte('C',(139,190,614,774))
         cor_vez = (255,0,0)
         ficheiro.adicionar_mural('vez',cor_vez)
         ficheiro.selecionar_mural('vez').adicionar_recorte('A',(73,124,317,472))
-        ficheiro.salvar_molde('MPSC6.xml')
+        ficheiro.salvar_molde('Moldes/MPSC6/MPSC6.xml')
         ficheiro.show()
 
     def test_ler_molde(self):
+        print '-------------test_ler_molde---------------'
         ficheiro = Ficheiro()
-        ficheiro.ler_molde('MPSC6.xml')
+        ficheiro.ler_molde('Moldes/MPSC6/MPSC6.xml')
         ficheiro.show()
 
     def test_iniciar(self):
+        print '-------------test_iniciar---------------'
         ficheiro = Ficheiro()
         PILImage = pyautogui.screenshot(region = (0,0,400,400))
         imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
-        ficheiro.iniciar('MPSC6.xml')
+        ficheiro.iniciar('Moldes/MPSC6')
         ficheiro.set_imagem(imagem)
         ficheiro.show()
 
     def test_set_imagem(self):
+        print '-------------test_set_imagem---------------'
         ficheiro = Ficheiro()
         PILImage = pyautogui.screenshot(region = (0,0,400,400))
         imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
-        ficheiro.iniciar('MPSC6.xml')
+        ficheiro.iniciar('Moldes/MPSC6')
+        ficheiro.set_imagem(imagem)
         ficheiro.show()
         PILImage = pyautogui.screenshot(region = (0,0,400,400))
         imagem = cv2.cvtColor(np.array(PILImage), cv2.COLOR_RGB2BGR)
         ficheiro.set_imagem(imagem)
         ficheiro.show()
-        
 
-    def test_resposta(self):
-        self.assertTrue(True)
+    def test_comparar(self):
+        print '-------------test_comparar---------------'
+        ficheiro = Ficheiro()
+        ficheiro.iniciar('Moldes/MPSC6')
+        ficheiro.comparar()
+        ficheiro.show()
     
 
 if __name__ == "__main__":

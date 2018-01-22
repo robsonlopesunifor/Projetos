@@ -10,24 +10,22 @@ class Mural:
         self.imagem = 'null'
         self.largura = 0
         self.altura = 0
-        self.nome = 'null'
         self.cor = (0,0,0)
-        self.tipo_de_reconhecimento = 'null'
-        self.filtro = 'null'
-        self.histograma = 'null'
-        self.condicao = 'null'
+        self.caminho = ''
         self.dicionario_de_recortes = {}
         self.dicionario_das_respostas_dos_recortes = {}
         self.resultado = 'null'
 
-    def inicia(self,nome,imagem,cor):
+    def inicia(self,nome,caminho,imagem,cor):
         self.nome = nome
         self.imagem = imagem
         self.cor = cor
+        self.caminho = "".join([caminho,nome,'/'])
+        print self.caminho
 
     def adicionar_recorte(self,nome_do_recorte,retangulo):
         novo_recorte = Recorte.Recorte()
-        novo_recorte.inicia(nome_do_recorte,self.imagem,self.cor,retangulo)
+        novo_recorte.inicia(nome_do_recorte,self.caminho,self.imagem,self.cor,retangulo)
         self.dicionario_de_recortes.setdefault(nome_do_recorte,novo_recorte)
         self.dicionario_das_respostas_dos_recortes.setdefault(nome_do_recorte,'null')
 
@@ -59,6 +57,13 @@ class Mural:
         for chave in self.dicionario_de_recortes:
             self.dicionario_de_recortes[chave].cor = cor
 
+    def comparar(self,erro):
+        for chave in self.dicionario_de_recortes:
+            resposta = self.dicionario_de_recortes[chave].comparar(erro)
+            self.dicionario_das_respostas_dos_recortes[chave] = resposta
+        print self.nome, self.dicionario_das_respostas_dos_recortes
+        return self.dicionario_das_respostas_dos_recortes
+
     def show(self):
         self.marcar()
         cv2.imshow(self.nome,self.imagem)
@@ -75,7 +80,7 @@ class MuralTest(unittest.TestCase):
         nome = 'nomedo mural'
         imagem = cv2.imread('entrada.jpg')
         cor = (0, 255, 0)
-        mural.inicia(nome,imagem,cor)
+        mural.inicia(nome,'null/',imagem,cor)
 
     def test_adicionar_seleciona_remover_recorte(self):
         print("____test_adicionar_seleciona_remover_recorte(self)")
@@ -83,7 +88,7 @@ class MuralTest(unittest.TestCase):
         nome = 'nomedo mural'
         imagem = cv2.imread('entrada.jpg')
         cor = (0, 255, 0)
-        mural.inicia(nome,imagem,cor)
+        mural.inicia(nome,'null/',imagem,cor)
         mural.adicionar_recorte('A',(0,100,0,100))
         self.assertTrue(mural.dicionario_de_recortes.get('A'))
         self.assertTrue(mural.dicionario_das_respostas_dos_recortes.get('A'))
@@ -100,12 +105,15 @@ class MuralTest(unittest.TestCase):
     def test_show(self):
         mural = Mural()
         nome = 'nomedo mural'
-        imagem = cv2.imread('entrada.jpg')
+        imagem = cv2.imread('Teste/mesa_2.jpg')
         cor = (0, 255, 0)
-        mural.inicia(nome,imagem,cor)
-        mural.adicionar_recorte('A',(139,190,614,774))
-        mural.adicionar_recorte('B',(311,364,614,774))
-        mural.adicionar_recorte('C',(311,364,23,183))
+        mural.inicia(nome,'null/',imagem,cor)
+        mural.adicionar_recorte('A',(131,149,373,392))
+        mural.adicionar_recorte('B',(209,227,352,371))
+        mural.adicionar_recorte('C',(231,249,275,294))
+        mural.adicionar_recorte('D',(209,227,115,134))
+        mural.adicionar_recorte('E',(128,146,100,119))
+        mural.adicionar_recorte('F',(95,113,197,216))        
         mural.show()
 
     def test_marcar(self):
@@ -117,14 +125,17 @@ class MuralTest(unittest.TestCase):
     def test_set_imagem(self):
         mural = Mural()
         nome = 'nomedo mural'
-        imagem = cv2.imread('entrada.jpg')
+        imagem = cv2.imread('Teste/mesa_1.jpg')
         cor = (0, 255, 0)
-        mural.inicia(nome,imagem,cor)
-        mural.adicionar_recorte('A',(139,190,614,774))
-        mural.adicionar_recorte('B',(311,364,614,774))
-        mural.adicionar_recorte('C',(311,364,23,183))
+        mural.inicia(nome,'null/',imagem,cor)
+        mural.adicionar_recorte('A',(131,149,373,392))
+        mural.adicionar_recorte('B',(209,227,352,371))
+        mural.adicionar_recorte('C',(231,249,275,294))
+        mural.adicionar_recorte('D',(209,227,115,134))
+        mural.adicionar_recorte('E',(128,146,100,119))
+        mural.adicionar_recorte('F',(95,113,197,216))
         mural.show()
-        imagem = cv2.imread('entrada2.jpg')
+        imagem = cv2.imread('Teste/mesa_2.jpg')
         mural.set_imagem(imagem)
         mural.show()
 
@@ -132,17 +143,44 @@ class MuralTest(unittest.TestCase):
         print 'teste set_cor'
         mural = Mural()
         nome = 'nomedo mural'
-        imagem = cv2.imread('entrada.jpg')
+        imagem = cv2.imread('Teste/mesa_3.jpg')
         cor = (0, 255, 0)
-        mural.inicia(nome,imagem,cor)
-        mural.adicionar_recorte('A',(139,190,614,774))
-        mural.adicionar_recorte('B',(311,364,614,774))
-        mural.adicionar_recorte('C',(311,364,23,183))
+        mural.inicia(nome,'null/',imagem,cor)
+        mural.adicionar_recorte('A',(131,149,373,392))
+        mural.adicionar_recorte('B',(209,227,352,371))
+        mural.adicionar_recorte('C',(231,249,275,294))
+        mural.adicionar_recorte('D',(209,227,115,134))
+        mural.adicionar_recorte('E',(128,146,100,119))
+        mural.adicionar_recorte('F',(95,113,197,216))
         mural.show()
-        imagem = cv2.imread('entrada2.jpg')
+        imagem = cv2.imread('Teste/mesa_4.jpg')
         mural.set_cor((255,255,255))
         mural.show()
         pass
+
+    def test_comparar(self):
+        mural = Mural()
+        nome = 'diler'
+        imagem = cv2.imread('Teste/mesa_3.jpg')
+        cor = (0, 255, 0)
+        mural.inicia(nome,'Moldes/MPSC6/Bases/',imagem,cor)
+        mural.adicionar_recorte('A',(131,149,373,392))
+        mural.adicionar_recorte('B',(209,227,352,371))
+        mural.adicionar_recorte('C',(231,249,275,294))
+        mural.adicionar_recorte('D',(209,227,115,134))
+        mural.adicionar_recorte('E',(128,146,100,119))
+        mural.adicionar_recorte('F',(95,113,197,216))  
+        mural.show()
+        mural.comparar(1000)
+        imagem = cv2.imread('Teste/mesa_2.jpg')
+        mural.set_imagem(imagem)
+        mural.show()
+        mural.comparar(1000)
+        imagem = cv2.imread('Teste/mesa_1.jpg')
+        mural.set_imagem(imagem)
+        mural.show()
+        mural.comparar(1000)
+        
 
     def test_show_informacoes(self):
         self.assertTrue(True)
